@@ -1,27 +1,16 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const startButton = document.getElementById('startButton');
-    const resultArea = document.getElementById('resultArea');
+// Obtém o elemento do botão e da área de resultado
+const botaoIniciar = document.getElementById('iniciarMissao');
+const areaResultado = document.getElementById('resultado');
 
-    function startMission() {
-        resultArea.textContent = 'Processando dados...';
-        
-        setTimeout(() => {
-            const missionResult = processData('Análise de dados sobre o clima.');
-            displayResult(missionResult);
-        }, 1500); // Simula um tempo de processamento
-    }
+// Declara a função para a missão de IA
+function iniciarMissaoIA() {
+    // Declara uma variável para armazenar a resposta da IA
+    let respostaIA = "Análise de dados concluída. Padrões identificados: crescimento de 15% na eficiência do sistema.";
 
-    // Função que processa os dados (pode ser mais complexa)
-    function processData(data) {
-        console.log("Processando a seguinte informação:", data);
-        const processed = data.toUpperCase().split(' ').reverse().join(' ');
-        return `Dados processados: ${processed}. Missão concluída com sucesso!`;
-    }
+    // Exibe a resposta na tela
+    areaResultado.textContent = respostaIA;
+}
 
-    // Função que exibe o resultado na tela
-    function displayResult(message) {
-        resultArea.textContent = message;
-    }
-
-    startButton.addEventListener('click', startMission);
-});
+// Adiciona um "ouvinte de evento" ao botão
+// Quando o botão é clicado, a função iniciarMissaoIA é chamada
+botaoIniciar.addEventListener('click', iniciarMissaoIA);
