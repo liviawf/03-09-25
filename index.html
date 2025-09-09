@@ -1,26 +1,47 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Missão IA Alura</title>
+    <title>Missão IA: O Despertar do Algoritmo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Bem-vindo à Missão de IA!</h1>
-        <p>A inteligência artificial pode nos ajudar a resolver desafios complexos.</p>
+        <h1>Missão IA: O Despertar do Algoritmo</h1>
+        <p>Uma jornada interativa no mundo da Inteligência Artificial.</p>
     </header>
 
     <main>
-        <div class="card">
-            <h2>Missão: Analisar Dados</h2>
-            <p>Clique no botão para iniciar a análise e ver o resultado.</p>
+        <section id="introducao">
+            <h2>Bem-vindo, Agente!</h2>
+            <p>Sua missão é crucial. Um novo algoritmo de IA, codinome 'Nexus', está se desenvolvendo rapidamente. Precisamos entender suas capacidades e garantir seu uso ético.</p>
             <button id="iniciarMissao">Iniciar Missão</button>
-            <div id="resultado"></div>
-        </div>
+        </section>
+
+        <section id="missao" class="escondido">
+            <h2>Fase 1: Coleta de Dados</h2>
+            <p id="textoMissao">Nexus precisa de dados para aprender. Escolha a fonte de dados mais adequada para treiná-lo em reconhecimento de padrões.</p>
+            <div class="opcoes">
+                <button class="opcao" data-valor="linguagem">Dados Linguísticos</button>
+                <button class="opcao" data-valor="imagem">Dados Visuais</button>
+                <button class="opcao" data-valor="numerico">Dados Numéricos</button>
+            </div>
+            <p id="feedback"></p>
+            <button id="proximaFase" class="escondido">Próxima Fase</button>
+        </section>
+
+        <section id="resultado" class="escondido">
+            <h2>Missão Cumprida (ou não!)</h2>
+            <p id="mensagemResultado"></p>
+            <button id="reiniciar">Reiniciar Missão</button>
+        </section>
     </main>
-    
+
+    <footer>
+        <p>&copy; 2025 Agência de IA Segura</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
