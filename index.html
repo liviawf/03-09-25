@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Missão IA</title>
+    <title>Missão IA - Quiz</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Missão: Inteligência Artificial</h1>
-        <p id="descricao">
-            Você foi escolhido para liderar uma missão de exploração sobre a Inteligência Artificial. Clique no botão abaixo para receber sua primeira tarefa.
-        </p>
-        <button onclick="iniciarMissao()">Iniciar Missão</button>
-        <div id="missao" class="oculto"></div>
+        <p id="intro">Responda às perguntas abaixo para completar sua missão.</p>
+
+        <div id="quiz-container"></div>
+
+        <button id="enviar" onclick="verificarRespostas()">Enviar Respostas</button>
+        <div id="resultado"></div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

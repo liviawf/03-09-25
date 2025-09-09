@@ -1,21 +1,72 @@
-function iniciarMissao() {
-    const descricao = document.getElementById("descricao");
-    const missao = document.getElementById("missao");
+const perguntas = [
+    {
+        pergunta: "1. O que é Inteligência Artificial?",
+        opcoes: [
+            "Um tipo de hardware avançado",
+            "Um sistema que simula a inteligência humana",
+            "Uma linguagem de programação"
+        ],
+        respostaCorreta: 1
+    },
+    {
+        pergunta: "2. Qual destas é uma aplicação comum da IA?",
+        opcoes: [
+            "Assistentes virtuais como Alexa e Siri",
+            "Refrigeração industrial",
+            "Construção civil"
+        ],
+        respostaCorreta: 0
+    },
+    {
+        pergunta: "3. A IA pode aprender com dados usando:",
+        opcoes: [
+            "Análise de redes sociais",
+            "Machine Learning",
+            "Computadores antigos"
+        ],
+        respostaCorreta: 1
+    }
+];
 
-    descricao.textContent = "Missão iniciada: sua tarefa é criar um modelo de IA capaz de ajudar pessoas com dificuldades de aprendizagem.";
+const quizContainer = document.getElementById("quiz-container");
 
-    missao.classList.remove("oculto");
-    missao.innerHTML = `
-        <h2>Desafio 1:</h2>
-        <p>Pesquise e descreva como a IA pode ser usada na educação inclusiva. Em seguida, clique no botão abaixo para concluir esta etapa.</p>
-        <button onclick="concluirMissao()">Concluir Etapa</button>
-    `;
+function carregarPerguntas() {
+    perguntas.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.classList.add("pergunta");
+
+        const titulo = document.createElement("h3");
+        titulo.textContent = item.pergunta;
+        div.appendChild(titulo);
+
+        item.opcoes.forEach((opcao, i) => {
+            const label = document.createElement("label");
+            label.innerHTML = `
+                <input type="radio" name="pergunta${index}" value="${i}"> ${opcao}
+            `;
+            div.appendChild(label);
+            div.appendChild(document.createElement("br"));
+        });
+
+        quizContainer.appendChild(div);
+    });
 }
 
-function concluirMissao() {
-    const missao = document.getElementById("missao");
-    missao.innerHTML = `
-        <h2>Parabéns!</h2>
-        <p>Você completou a primeira etapa da missão. Continue explorando o universo da inteligência artificial para transformar o mundo!</p>
-    `;
-}
+function verificarRespostas() {
+    let acertos = 0;
+
+    perguntas.forEach((item, index) => {
+        const opcoes = document.getElementsByName(`pergunta${index}`);
+        opcoes.forEach((opcao) => {
+            if (opcao.checked && parseInt(opcao.value) === item.respostaCorreta) {
+                acertos++;
+            }
+        });
+    });
+
+    const resultado = document.getElementById("resultado");
+    resultado.innerHTML = `Você acertou <strong>${acertos}</strong> de <strong>${perguntas.length}</strong> perguntas.`;
+
+    if (acertos === perguntas.length) {
+        resultado.innerHTML += "<br><span style='color: #00ff0
+
