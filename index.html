@@ -1,128 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Missão de IA</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-            color: #1f2937;
-        }
-        .result-message.success {
-            background-color: #d1fae5;
-            color: #065f46;
-        }
-        .result-message.error {
-            background-color: #fee2e2;
-            color: #991b1b;
-        }
-    </style>
+    <title>Missão IA</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white shadow-2xl rounded-2xl p-8 max-w-4xl w-full border border-gray-200">
-        <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-indigo-700 mb-2">Missão de IA: A Ascensão das Funções</h1>
-            <p class="text-lg text-gray-600">Sua tarefa é usar o poder das funções para processar dados críticos e completar a missão.</p>
-        </header>
-
-        <section class="mb-8 p-6 bg-gray-50 rounded-xl border border-gray-200">
-            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Objetivo: Analisar o Desempenho dos Robôs</h2>
-            <p class="text-gray-700 leading-relaxed mb-4">
-                No quartel-general da Cyber-Tech, você recebeu a missão de analisar o desempenho de uma equipe de robôs. Cada robô tem uma pontuação baseada em suas habilidades. Você precisa usar uma função para calcular a pontuação final, aplicando um bônus se o robô tiver mais de 5 anos de serviço.
-            </p>
-
-            <div class="mb-4">
-                <label for="pontuacaoBase" class="block font-medium text-gray-700 mb-1">Pontuação Base:</label>
-                <input type="number" id="pontuacaoBase" placeholder="Ex: 80" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200">
-            </div>
-
-            <div class="mb-4">
-                <label for="anosServico" class="block font-medium text-gray-700 mb-1">Anos de Serviço:</label>
-                <input type="number" id="anosServico" placeholder="Ex: 7" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200">
-            </div>
-
-            <button onclick="calcularPontuacao()" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 ease-in-out transform hover:scale-105">
-                Calcular Pontuação Final
-            </button>
-            <div id="resultado" class="mt-6 p-4 text-center text-lg font-semibold rounded-lg hidden transition-all duration-300 ease-in-out result-message"></div>
-        </section>
-
-        <section class="p-6 bg-gray-50 rounded-xl border border-gray-200">
-            <h2 class="text-2xl font-semibold text-gray-800 mb-4">A Lógica da Função</h2>
-            <p class="text-gray-700 leading-relaxed mb-4">
-                Uma **função** é um bloco de código que executa uma tarefa específica. Ela nos ajuda a organizar e reutilizar o código. No nosso caso, a função `calcularPontuacaoFinal` recebe dois parâmetros e retorna a pontuação final.
-            </p>
-            <pre class="bg-gray-800 text-green-400 p-4 rounded-xl text-sm overflow-x-auto">
-                <code id="codigoFuncao">
-function calcularPontuacaoFinal(pontuacao, anos) {
-    let pontuacaoFinal = pontuacao;
-    if (anos > 5) {
-        pontuacaoFinal += 10; // Adiciona bônus
-    }
-    return pontuacaoFinal;
-}
-                </code>
-            </pre>
-            <p class="mt-4 text-gray-700">
-                A função `calcularPontuacaoFinal` é um exemplo perfeito de como encapsular a lógica de negócio em um bloco reutilizável de código.
-            </p>
-        </section>
-        
-        <footer class="mt-8 text-center text-gray-500 text-sm">
-            <p>&copy; 2023 Missão de IA. Todos os direitos reservados.</p>
-        </footer>
+<body>
+    <div class="container">
+        <h1>Missão: Inteligência Artificial</h1>
+        <p id="descricao">
+            Você foi escolhido para liderar uma missão de exploração sobre a Inteligência Artificial. Clique no botão abaixo para receber sua primeira tarefa.
+        </p>
+        <button onclick="iniciarMissao()">Iniciar Missão</button>
+        <div id="missao" class="oculto"></div>
     </div>
-
-    <script>
-        // Função principal que orquestra o cálculo
-        function calcularPontuacao() {
-            const pontuacaoBaseInput = document.getElementById('pontuacaoBase');
-            const anosServicoInput = document.getElementById('anosServico');
-            const resultadoDiv = document.getElementById('resultado');
-
-            const pontuacao = parseInt(pontuacaoBaseInput.value);
-            const anos = parseInt(anosServicoInput.value);
-
-            // Validação mais robusta para garantir que os valores são numéricos e positivos
-            if (isNaN(pontuacao) || isNaN(anos) || pontuacao < 0 || anos < 0) {
-                resultadoDiv.textContent = "Por favor, insira valores numéricos válidos e positivos.";
-                resultadoDiv.className = "mt-6 p-4 text-center text-lg font-semibold rounded-lg block transition-all duration-300 ease-in-out result-message error";
-                return;
-            }
-
-            // Chama a função para calcular a pontuação final
-            const pontuacaoFinal = calcularPontuacaoFinal(pontuacao, anos);
-
-            // Exibe o resultado da missão
-            resultadoDiv.textContent = `Missão Concluída! Pontuação Final do Robô: ${pontuacaoFinal}`;
-            resultadoDiv.className = "mt-6 p-4 text-center text-lg font-semibold rounded-lg block transition-all duration-300 ease-in-out result-message success";
-        }
-
-        /**
-         * Calcula a pontuação final de um robô com base na pontuação base e anos de serviço.
-         * Adiciona um bônus de 10 se os anos de serviço forem maiores que 5.
-         * @param {number} pontuacao - A pontuação base do robô.
-         * @param {number} anos - Os anos de serviço do robô.
-         * @returns {number} A pontuação final calculada.
-         */
-        function calcularPontuacaoFinal(pontuacao, anos) {
-            let pontuacaoFinal = pontuacao;
-            if (anos > 5) {
-                pontuacaoFinal += 10;
-            }
-            return pontuacaoFinal;
-        }
-
-        // Adiciona um evento para o "Enter" no campo de anos de serviço
-        document.getElementById('anosServico').addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                calcularPontuacao();
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
