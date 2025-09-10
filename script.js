@@ -1,110 +1,98 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const questions = [
+    const perguntas = [
         {
-            question: "O que é Inteligência Artificial (IA)?",
-            options: [
-                "Um software para edição de fotos.",
-                "Uma área da ciência da computação que cria máquinas capazes de 'pensar' e aprender.",
-                "Um novo tipo de robô industrial.",
-                "Uma linguagem de programação."
+            pergunta: "1. O que é Inteligência Artificial?",
+            opcoes: [
+                "Um tipo de hardware avançado",
+                "Um sistema que simula a inteligência humana",
+                "Uma linguagem de programação"
             ],
-            answer: "Uma área da ciência da computação que cria máquinas capazes de 'pensar' e aprender."
+            respostaCorreta: 1
         },
         {
-            question: "Qual dos seguintes é um exemplo de IA que você pode usar no dia a dia?",
-            options: [
-                "Uma calculadora simples.",
-                "Um assistente de voz como a Siri ou a Alexa.",
-                "Um teclado físico de computador.",
-                "Uma impressora 3D."
+            pergunta: "2. Qual destas é uma aplicação comum da IA?",
+            opcoes: [
+                "Assistentes virtuais como Alexa e Siri",
+                "Refrigeração industrial",
+                "Construção civil"
             ],
-            answer: "Um assistente de voz como a Siri ou a Alexa."
+            respostaCorreta: 0
         },
         {
-            question: "A IA é usada para reconhecimento facial em celulares. Isso é verdadeiro ou falso?",
-            options: [
-                "Verdadeiro",
-                "Falso"
+            pergunta: "3. A IA pode aprender com dados usando:",
+            opcoes: [
+                "Análise de redes sociais",
+                "Machine Learning",
+                "Computadores antigos"
             ],
-            answer: "Verdadeiro"
-        },
-        {
-            question: "Qual o principal objetivo da Inteligência Artificial?",
-            options: [
-                "Substituir todos os empregos humanos.",
-                "Criar máquinas que parecem humanos.",
-                "Resolver problemas complexos e otimizar tarefas de forma autônoma.",
-                "Ganhar jogos de xadrez."
-            ],
-            answer: "Resolver problemas complexos e otimizar tarefas de forma autônoma."
+            respostaCorreta: 1
         }
     ];
 
-    const quizContainer = document.getElementById('quiz-container');
-    const submitButton = document.getElementById('enviar');
-    const resultDiv = document.getElementById('resultado');
+    const quizContainer = document.getElementById("quiz-container");
+    const enviarBotao = document.getElementById("enviar");
+    const resultadoDiv = document.getElementById("resultado");
 
-    function loadQuiz() {
-        questions.forEach((q, index) => {
-            const questionElement = document.createElement('div');
-            questionElement.classList.add('pergunta');
-            questionElement.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+    function carregarPerguntas() {
+        perguntas.forEach((item, index) => {
+            const div = document.createElement("div");
+            div.classList.add("pergunta");
 
-            const optionsElement = document.createElement('div');
-            q.options.forEach(option => {
-                const optionLabel = document.createElement('label');
-                optionLabel.innerHTML = `
-                    <input type="radio" name="question${index}" value="${option}">
-                    ${option}
+            const titulo = document.createElement("h3");
+            titulo.textContent = item.pergunta;
+            div.appendChild(titulo);
+
+            item.opcoes.forEach((opcao, i) => {
+                const label = document.createElement("label");
+                label.innerHTML = `
+                    <input type="radio" name="pergunta${index}" value="${i}"> ${opcao}
                 `;
-                optionsElement.appendChild(optionLabel);
+                div.appendChild(label);
             });
-            questionElement.appendChild(optionsElement);
-            quizContainer.appendChild(questionElement);
+
+            quizContainer.appendChild(div);
         });
     }
 
-    function checkAnswers() {
-        let score = 0;
-        let allAnswered = true;
-        const totalQuestions = questions.length;
+    function verificarRespostas() {
+        let acertos = 0;
+        let todasRespondidas = true;
 
-        questions.forEach((q, index) => {
-            const selector = `input[name="question${index}"]:checked`;
-            const selectedOption = document.querySelector(selector);
-
-            if (selectedOption) {
-                if (selectedOption.value === q.answer) {
-                    score++;
+        perguntas.forEach((item, index) => {
+            const opcoes = document.getElementsByName(`pergunta${index}`);
+            let respondida = false;
+            opcoes.forEach((opcao) => {
+                if (opcao.checked) {
+                    respondida = true;
+                    if (parseInt(opcao.value) === item.respostaCorreta) {
+                        acertos++;
+                    }
                 }
-            } else {
-                allAnswered = false;
+            });
+            if (!respondida) {
+                todasRespondidas = false;
             }
         });
 
-        if (!allAnswered) {
-            resultDiv.textContent = 'Por favor, responda a todas as perguntas para completar a missão!';
-            resultDiv.style.color = '#ff6347'; // Tom de vermelho para aviso
+        if (!todasRespondidas) {
+            resultadoDiv.textContent = "Por favor, responda a todas as perguntas para completar a missão!";
+            resultadoDiv.style.color = "#ff6347";
         } else {
-            const percentage = (score / totalQuestions) * 100;
-            let message = '';
+            resultadoDiv.innerHTML = `Você acertou <strong>${acertos}</strong> de <strong>${perguntas.length}</strong> perguntas.`;
 
-            if (percentage === 100) {
-                message = 'Missão completa! Você é um especialista em IA!';
-                resultDiv.style.color = '#00ffff';
-            } else if (percentage >= 75) {
-                message = 'Ótimo trabalho! Quase lá para ser um especialista!';
-                resultDiv.style.color = '#90ee90';
+            if (acertos === perguntas.length) {
+                resultadoDiv.innerHTML += "<br><span>Parabéns! Missão completa!</span>";
+                resultadoDiv.style.color = "#00ffff"; // Cor para 100% de acerto
             } else {
-                message = 'Continue estudando! Tente novamente para completar a missão.';
-                resultDiv.style.color = '#ff6347';
+                resultadoDiv.innerHTML += "<br><span>Continue estudando para dominar a IA!</span>";
+                resultadoDiv.style.color = "#ff6347"; // Cor para acertos parciais
             }
-
-            resultDiv.textContent = `Você acertou ${score} de ${totalQuestions} perguntas. ${message}`;
         }
     }
 
-    submitButton.addEventListener('click', checkAnswers);
+    // Associa a função ao clique do botão
+    enviarBotao.addEventListener("click", verificarRespostas);
 
-    loadQuiz();
+    // Carrega as perguntas quando a página é carregada
+    carregarPerguntas();
 });
